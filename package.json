@@ -1,0 +1,11 @@
+{
+  "name": "engineering_practice",
+  "version": "1.0.0",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mysql": "^2.12.0"
+  },
+  "author": "denche_t <thibaud.denche@epitech.eu>",
+  "description": "Basic Web API for a company to record employees's application for leave."
+}
