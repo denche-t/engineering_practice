@@ -1,0 +1,66 @@
+API DOCUMENTATION :
+
+/login/			POST
+login=toto&password=123
+	{ status :0, message : 'LOGIN succed', emloyee_object : {.....}, token : 'nlsMn6Zt7plJ5x'}
+	{ status :1, message : 'LOGIN internal error'}
+        { status :2, message : 'LOGIN login doesnt exist'}
+	{ status :3, message : 'LOGIN wrong password'}
+
+/login/create/		POST
+employee_login=toto1&first_name=toto&last_name=tata&password=123&employee_rank=gm
+employee_login=toto2&first_name=toto&last_name=tata&password=123&employee_rank=dm&employee_department=accounting
+employee_login=toto3&first_name=toto&last_name=tata&password=123&employee_rank=employee&employee_department=accounting
+	{ status: 0, message: 'CREATE LOGIN succeed' }
+	{ status: 1, message: 'CREATE LOGIN internal error' }
+	{ status: 1, message: 'GET DM internal error' }
+	{ status: 1, message: 'GET GM internal error' }
+	{ status: 2, message: 'CREATE LOGIN invalid arguments' }
+	{ status: 3, message: 'CREATE LOGIN login already exist' }
+	{ status: 4, message: 'GET DM no DM found for department ' + args.employee_department }
+	{ status: 5, message: 'GET GM no GM found' }
+
+/logout/		POST
+login=toto&token=nlsMn6Zt7plJ5x
+	{ status: 0, message: 'LOGOUT logout succeed' }
+	{ status: 1, message: 'LOGOUT internal error' }
+	{ status: 2, message: 'LOGOUT login doesnt exist' }
+
+/leaves/		GET
+login=toto&token=nlsMn6Zt7plJ5x
+	{ status: 0, message: 'NEW_LEAVE creation succeed' }
+	{ status: 1, message: 'TOKEN internal error' }
+	{ status: 2, message: 'TOKEN token not valid' }
+	{ status: 3, message: 'EMPLOYEE employee not found' }
+	{ status: 4, message: 'LEAVES leave invalid format' }
+
+/leaves/create/		POST
+login=toto&token=nlsMn6Zt7plJ5x&date_leave_start=2016-12-16&date_leave_end=2016-12-17&leave_type=business
+login=toto&token=nlsMn6Zt7plJ5x&date_leave_start=2016-12-16&date_leave_end=2016-12-17&leave_type=private&leave_reason=illness
+login=toto&token=nlsMn6Zt7plJ5x&date_leave_start=2016-12-16&date_leave_end=2016-12-17&leave_type=private&leave_reason=other&leave_comment=hoho
+	{ status: 0, message: 'NEW_LEAVE creation succeed' }
+	{ status: 1, message: 'TOKEN internal error' }
+	{ status: 2, message: 'TOKEN token not valid' }
+	{ status: 1, message: 'EMPLOYEE internal error' }
+	{ status: 3, message: 'EMPLOYEE employee not found' }
+	{ status: 1, message: 'NEW_LEAVE internal error'}
+	{ status: 4, message: 'LEAVES leave invalid format' }
+
+/leaves/validate/dm	PATCH
+login=toto&token=nlsMn6Zt7plJ5x&leave_id=1&dm_validation=true
+	{ status: 0, message: 'LEAVE dm validation succeed' }
+	{ status: 1, message: 'TOKEN internal error' }
+	{ status: 2, message: 'TOKEN token not valid' }
+	{ status: 1, message: 'EMPLOYEE internal error' }
+	{ status: 3, message: 'EMPLOYEE employee not found' }
+	{ status: 1, message: 'LEAVE dm validation internal error' }
+
+/leaves/validate/gm	PATCH
+login=toto&token=nlsMn6Zt7plJ5x&leave_id=1&dm_validation=false
+	{ status: 0, message: 'LEAVE gm validation succeed' }
+	{ status: 1, message: 'TOKEN internal error' }
+	{ status: 2, message: 'TOKEN token not valid' }
+	{ status: 1, message: 'EMPLOYEE internal error' }
+	{ status: 3, message: 'EMPLOYEE employee not found' }
+	{ status: 1, message: 'LEAVE gm validation internal error' }
+

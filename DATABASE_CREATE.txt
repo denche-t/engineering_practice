@@ -1,0 +1,51 @@
+CREATE DATABASE the_leave_system;
+USE the_leave_system;
+
+CREATE TABLE employees(
+	employee_id INT NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY (employee_id),
+	employee_login VARCHAR(40) NOT NULL,
+	employee_rank VARCHAR(40) NOT NULL,		// employee, dm, gm
+	active BOOLEAN NOT NULL DEFAULT true,
+	first_name VARCHAR(40) NOT NULL,
+	last_name VARCHAR(40) NOT NULL,
+	employee_department VARCHAR(40),
+	dm_id INT,
+	gm_id INT,
+	password VARCHAR(40) NOT NULL
+);
+
+CREATE TABLE leaves(
+	leave_id INT NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY (leave_id),
+	applicant_rank VARCHAR(40) NOT NULL,		// employee, dm, gm
+	applicant_id INT NOT NULL,
+	dm_id INT,
+	dm_accepted BOOLEAN DEFAULT NULL,
+	gm_id INT NOT NULL,
+	gm_accepted INT DEFAULT NULL,
+	date_leave_start DATE NOT NULL,			// yyyy-mm-dd
+	date_leave_end DATE NOT NULL,			// yyyy-mm-dd
+	leave_type VARCHAR(40) NOT NULL,		// business, private
+	leave_reason VARCHAR(40),			// illness, wedding, give birth to a child, annual leave
+	leave_comment VARCHAR(400)
+);
+
+CREATE TABLE connexion_token(
+	token_id INT NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY (token_id),
+	applicant_login VARCHAR(40) NOT NULL,
+	applicant_id INT NOT NULL,
+	token VARCHAR(40) NOT NULL,
+	active BOOLEAN NOT NULL DEFAULT TRUE,
+	date_creation_token DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+DROP DATABASE the_leave_system;
+
+INSERT INTO employees (employee_login, employee_rank,  active, first_name, last_name, department_id, password)
+VALUES ('toto', 'employee', true, 'toto', 'tata', 1, 123);
+
+Check employee rank
+
+

@@ -8,7 +8,7 @@ function Connection() {
             connectionLimit: 10,
             host: 'localhost',
             user: 'root',
-            password: 'coinage74-*',
+            password: 'xxxxxxxxx',
             database: 'the_leave_system'
         });
     };
