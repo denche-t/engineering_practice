@@ -22,7 +22,7 @@ CREATE TABLE leaves(
 	applicant_id INT NOT NULL,
 	dm_id INT,
 	dm_accepted BOOLEAN DEFAULT NULL,
-	gm_id INT NOT NULL,
+	gm_id INT,
 	gm_accepted INT DEFAULT NULL,
 	date_leave_start DATE NOT NULL,			// yyyy-mm-dd
 	date_leave_end DATE NOT NULL,			// yyyy-mm-dd

@@ -2,65 +2,65 @@ API DOCUMENTATION :
 
 /login/			POST
 login=toto&password=123
-	{ status :0, message : 'LOGIN succed', emloyee_object : {.....}, token : 'nlsMn6Zt7plJ5x'}
-	{ status :1, message : 'LOGIN internal error'}
-        { status :2, message : 'LOGIN login doesnt exist'}
-	{ status :3, message : 'LOGIN wrong password'}
+	{"status":0,"message":"LOGIN succeed","employee_object":{"employee_id":1,"employee_login":"toto","employee_rank":"gm","active":1,"first_name":"toto","last_name":"tata","employee_department":"null","dm_id":null,"gm_id":null,"password":"123"},"token":"RE3NfPgk9ptxM8"}
+	{"status":1,"message":"LOGIN internal error"}
+    {"status":2,"message":"LOGIN login doesnt exist"}
+	{"status":3,"message":"LOGIN wrong password"}
 
 /login/create/		POST
 employee_login=toto1&first_name=toto&last_name=tata&password=123&employee_rank=gm
 employee_login=toto2&first_name=toto&last_name=tata&password=123&employee_rank=dm&employee_department=accounting
 employee_login=toto3&first_name=toto&last_name=tata&password=123&employee_rank=employee&employee_department=accounting
-	{ status: 0, message: 'CREATE LOGIN succeed' }
-	{ status: 1, message: 'CREATE LOGIN internal error' }
-	{ status: 1, message: 'GET DM internal error' }
-	{ status: 1, message: 'GET GM internal error' }
-	{ status: 2, message: 'CREATE LOGIN invalid arguments' }
-	{ status: 3, message: 'CREATE LOGIN login already exist' }
-	{ status: 4, message: 'GET DM no DM found for department ' + args.employee_department }
-	{ status: 5, message: 'GET GM no GM found' }
+	{"status":0,"message":"CREATE LOGIN succeed"}
+	{"status":1,"message":"CREATE LOGIN internal error"}
+	{"status":1,"message":"GET DM internal error"}
+	{"status":1,"message":"GET GM internal error"}
+	{"status":2,"message":"CREATE LOGIN invalid arguments"}
+	{"status":3,"message":"CREATE LOGIN login already exist"}
+	{"status":4,"message":"GET DM no DM found for department" + args.employee_department }
+	{"status":5,"message":"GET GM no GM found"}
 
 /logout/		POST
 login=toto&token=nlsMn6Zt7plJ5x
-	{ status: 0, message: 'LOGOUT logout succeed' }
-	{ status: 1, message: 'LOGOUT internal error' }
-	{ status: 2, message: 'LOGOUT login doesnt exist' }
+	{"status":"0","message":"LOGOUT logout succeed"}
+	{"status":"1","message":"LOGOUT internal error"}
+	{"status":"2","message":"LOGOUT login doesnt exist"}
 
-/leaves/		GET
+/leaves/		POST
 login=toto&token=nlsMn6Zt7plJ5x
-	{ status: 0, message: 'NEW_LEAVE creation succeed' }
-	{ status: 1, message: 'TOKEN internal error' }
-	{ status: 2, message: 'TOKEN token not valid' }
-	{ status: 3, message: 'EMPLOYEE employee not found' }
-	{ status: 4, message: 'LEAVES leave invalid format' }
+	{"status":0,"message":"LEAVES get succeed","result":[{"leave_id":1,"applicant_rank":"gm","applicant_id":1,"dm_id":null,"dm_accepted":null,"gm_id":null,"gm_accepted":null,"date_leave_start":"2016-12-19T16:00:00.000Z","date_leave_end":"2016-12-20T16:00:00.000Z","leave_type":"business","leave_reason":null,"leave_comment":null}]}
+	{"status":1,"message":"TOKEN internal error"}
+	{"status":2,"message":"TOKEN token not valid"}
+	{"status":3,"message":"EMPLOYEE employee not found"}
+	{"status":4,"message":"LEAVES leave invalid format"}
 
 /leaves/create/		POST
 login=toto&token=nlsMn6Zt7plJ5x&date_leave_start=2016-12-16&date_leave_end=2016-12-17&leave_type=business
 login=toto&token=nlsMn6Zt7plJ5x&date_leave_start=2016-12-16&date_leave_end=2016-12-17&leave_type=private&leave_reason=illness
 login=toto&token=nlsMn6Zt7plJ5x&date_leave_start=2016-12-16&date_leave_end=2016-12-17&leave_type=private&leave_reason=other&leave_comment=hoho
-	{ status: 0, message: 'NEW_LEAVE creation succeed' }
-	{ status: 1, message: 'TOKEN internal error' }
-	{ status: 2, message: 'TOKEN token not valid' }
-	{ status: 1, message: 'EMPLOYEE internal error' }
-	{ status: 3, message: 'EMPLOYEE employee not found' }
-	{ status: 1, message: 'NEW_LEAVE internal error'}
-	{ status: 4, message: 'LEAVES leave invalid format' }
+	{"status":0,"message":"NEW_LEAVE creation succeed"}
+	{"status":1,"message":"TOKEN internal error"}
+	{"status":2,"message":"TOKEN token not valid"}
+	{"status":1,"message":"EMPLOYEE internal error"}
+	{"status":3,"message":"EMPLOYEE employee not found"}
+	{"status":1,"message":"NEW_LEAVE internal error"}
+	{"status":4,"message":"LEAVES leave invalid format"}
 
 /leaves/validate/dm	PATCH
 login=toto&token=nlsMn6Zt7plJ5x&leave_id=1&dm_validation=true
-	{ status: 0, message: 'LEAVE dm validation succeed' }
-	{ status: 1, message: 'TOKEN internal error' }
-	{ status: 2, message: 'TOKEN token not valid' }
-	{ status: 1, message: 'EMPLOYEE internal error' }
-	{ status: 3, message: 'EMPLOYEE employee not found' }
-	{ status: 1, message: 'LEAVE dm validation internal error' }
+	{"status":0,"message":"LEAVE dm validation succeed"}
+	{"status":1,"message":"TOKEN internal error"}
+	{"status":2,"message":"TOKEN token not valid"}
+	{"status":1,"message":"EMPLOYEE internal error"}
+	{"status":3,"message":"EMPLOYEE employee not found"}
+	{"status":1,"message":"LEAVE dm validation internal error"}
 
 /leaves/validate/gm	PATCH
 login=toto&token=nlsMn6Zt7plJ5x&leave_id=1&dm_validation=false
-	{ status: 0, message: 'LEAVE gm validation succeed' }
-	{ status: 1, message: 'TOKEN internal error' }
-	{ status: 2, message: 'TOKEN token not valid' }
-	{ status: 1, message: 'EMPLOYEE internal error' }
-	{ status: 3, message: 'EMPLOYEE employee not found' }
-	{ status: 1, message: 'LEAVE gm validation internal error' }
+	{"status":0,"message:"LEAVE gm validation succeed"}
+	{"status":1,"message:"TOKEN internal error"}
+	{"status":2,"message:"TOKEN token not valid"}
+	{"status":1,"message:"EMPLOYEE internal error"}
+	{"status":3,"message:"EMPLOYEE employee not found"}
+	{"status":1,"message:"LEAVE gm validation internal error"}
 

@@ -8,6 +8,10 @@ module.exports = {
             login.proceed(req.body, res);
         });
 
+        app.get('/login/', function (req, res) {
+            login.getDepartmentList(res);
+        });
+
         app.post('/login/create/', function (req, res) {
             login.create(req.body, res);
         });
@@ -16,8 +20,8 @@ module.exports = {
             login.logout(req.body, res);
         });
 
-        app.get('/leaves/', function (req, res) {
-            leaves.getAll(res);
+        app.post('/leaves/', function (req, res) {
+            leaves.getAll(req.body, res);
         });
 
         app.post('/leaves/create/', function (req, res) {

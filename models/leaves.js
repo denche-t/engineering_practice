@@ -44,31 +44,32 @@ function Leaves() {
             controller.checkToken(con, res, args, function (err, con, res, args, is_token_valid) {
                 if (err) {
                     con.release();
-                    res.send({ status: 1, message: 'TOKEN internal error' });
+                    res.send(JSON.stringify({ status: 1, message: 'TOKEN internal error' }));
                 } else if (!is_token_valid) {
                     con.release();
-                    res.send({ status: 2, message: 'TOKEN token not valid' });
+                    res.send(JSON.stringify({ status: 2, message: 'TOKEN token not valid' }));
                 } else {
                     controller.getEmployee(con, res, args, function (err, con, res, args, employee) {
                         if (err) {
                             con.release();
-                            res.send({ status: 1, message: 'EMPLOYEE internal error' });
+                            res.send(JSON.stringify({ status: 1, message: 'EMPLOYEE internal error' }));
                         } else if (employee == null) {
                             con.release();
-                            res.send({ status: 3, message: 'EMPLOYEE employee not found' });
+                            res.send(JSON.stringify({ status: 3, message: 'EMPLOYEE employee not found' }));
                         } else {
                             var valid = controller.checkLeaveValid(args);
                             if (valid == 1) {
                                 con.release();
-                                res.send({ status: 4, message: 'LEAVES leave invalid format' });
+                                res.send(JSON.stringify({ status: 4, message: 'LEAVES leave invalid format' }));
                             } else {
                                 createNewLeave(con, res, args, employee,
                                     function (err, con, res, is_created) {
                                         con.release();
                                         if (err) {
-                                            res.send({ status: 1, message: 'NEW_LEAVE internal error'});
+                                            console.log(err);
+                                            res.send(JSON.stringify({ status: 1, message: 'NEW_LEAVE internal error'}));
                                         } else {
-                                            res.send({ status: 0, message: 'NEW_LEAVE creation succeed' });
+                                            res.send(JSON.stringify({ status: 0, message: 'NEW_LEAVE creation succeed' }));
                                         }
                                     });
                             }
@@ -79,24 +80,25 @@ function Leaves() {
         });
     }
 
-    this.getAll = function (res) {
+    this.getAll = function (args, res) {
         connection.acquire(function (err, con) {
             controller.checkToken(con, res, args, function (err, con, res, args, is_token_valid) {
-                if (err) {
-                    con.release();
-                    res.send({ status: 1, message: 'TOKEN internal error' });
-                } else if (!is_token_valid) {
-                    con.release();
-                    res.send({ status: 2, message: 'TOKEN token not valid' });
-                } else {
+            if (err) {
+                con.release();
+                res.send(JSON.stringify({ status: 1, message: 'TOKEN internal error' }));
+            } else if (!is_token_valid) {
+                con.release();
+                res.send(JSON.stringify({ status: 2, message: 'TOKEN token not valid' }));
+            } else {
                     con.query('SELECT * FROM leaves',
                     function (err, result) {
+                        leavesList = result;
                         console.log(result)
                         con.release();
                         if (err) {
-                            res.send({ status: 1, message: 'LEAVES internal error' });
+                            res.send(JSON.stringify({ status: 1, message: 'LEAVES internal error' }));
                         } else {
-                            res.send({ status: 0, message: 'LEAVES get succeed', result: result });
+                            res.send(JSON.stringify({ status: 0, message: 'LEAVES get succeed', result: leavesList }));
                         }
                     });
                 }
@@ -120,26 +122,26 @@ function Leaves() {
             controller.checkToken(con, res, args, function (err, con, res, args, is_token_valid) {
                 if (err) {
                     con.release();
-                    res.send({ status: 1, message: 'TOKEN internal error' });
+                    res.send(JSON.stringify({ status: 1, message: 'TOKEN internal error' }));
                 } else if (!is_token_valid) {
                     con.release();
-                    res.send({ status: 2, message: 'TOKEN token not valid' });
+                    res.send(JSON.stringify({ status: 2, message: 'TOKEN token not valid' }));
                 } else {
                     controller.getEmployee(con, res, args, function (err, con, res, args, employee) {
                         if (err) {
                             con.release();
-                            res.send({ status: 1, message: 'EMPLOYEE internal error' });
+                            res.send(JSON.stringify({ status: 1, message: 'EMPLOYEE internal error' }));
                         } else if (employee == null) {
                             con.release();
-                            res.send({ status: 3, message: 'EMPLOYEE employee not found' });
+                            res.send(JSON.stringify({ status: 3, message: 'EMPLOYEE employee not found' }));
                         } else {
                             patch_leave_dm_validation(con, res, args, employee, function (err, con, res, args) {
                                 con.release();
                                 if (err) {
                            
-                                    res.send({ status: 1, message: 'LEAVE dm validation internal error' });
+                                    res.send(JSON.stringify({ status: 1, message: 'LEAVE dm validation internal error' }));
                                 } else {
-                                    res.send({ status: 0, message: 'LEAVE dm validation succeed' });
+                                    res.send(JSON.stringify({ status: 0, message: 'LEAVE dm validation succeed' }));
                                 }
 
                             });
@@ -167,26 +169,26 @@ function Leaves() {
             controller.checkToken(con, res, args, function (err, con, res, args, is_token_valid) {
                 if (err) {
                     con.release();
-                    res.send({ status: 1, message: 'TOKEN internal error' });
+                    res.send(JSON.stringify({ status: 1, message: 'TOKEN internal error' }));
                 } else if (!is_token_valid) {
                     con.release();
-                    res.send({ status: 2, message: 'TOKEN token not valid' });
+                    res.send(JSON.stringify({ status: 2, message: 'TOKEN token not valid' }));
                 } else {
                     controller.getEmployee(con, res, args, function (err, con, res, args, employee) {
                         if (err) {
                             con.release();
-                            res.send({ status: 1, message: 'EMPLOYEE internal error' });
+                            res.send(JSON.stringify({ status: 1, message: 'EMPLOYEE internal error' }));
                         } else if (employee == null) {
                             con.release();
-                            res.send({ status: 3, message: 'EMPLOYEE employee not found' });
+                            res.send(JSON.stringify({ status: 3, message: 'EMPLOYEE employee not found' }));
                         } else {
                             patch_leave_gm_validation(con, res, args, employee, function (err, con, res, args) {
                                 con.release();
                                 if (err) {
 
-                                    res.send({ status: 1, message: 'LEAVE gm validation internal error' });
+                                    res.send(JSON.stringify({ status: 1, message: 'LEAVE gm validation internal error' }));
                                 } else {
-                                    res.send({ status: 0, message: 'LEAVE dm validation succeed' });
+                                    res.send(JSON.stringify({ status: 0, message: 'LEAVE dm validation succeed' }));
                                 }
 
                             });
