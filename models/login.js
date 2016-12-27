@@ -70,8 +70,9 @@ function Login() {
             function (err, result) {
                 console.log(result)
                 if (err) {
+                    console.log(err);
                     res.send(JSON.stringify({ status: 1, message: 'LOGOUT internal error' }));
-                } else if (result[0].result == 0) {
+                } else if (result.affectedRows == 0) {
                     res.send(JSON.stringify({ status: 2, message: 'LOGOUT token doesnt exist' }));
                 }
                 else {

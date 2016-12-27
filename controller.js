@@ -46,7 +46,7 @@ function Controller() {
     };
 
     this.checkToken = function (con, res, args, callback) {
-        con.query('SELECT * FROM connexion_token WHERE applicant_login = \'' + args.login + '\' AND token = \'' + args.token + '\' AND date_creation_token > NOW() - INTERVAL 8 HOUR',
+        con.query('SELECT * FROM connexion_token WHERE active=true AND applicant_login = \'' + args.login + '\' AND token = \'' + args.token + '\' AND date_creation_token > NOW() - INTERVAL 8 HOUR',
             function (err, result) {
                 if (err) {
                     callback(err, con, res);
