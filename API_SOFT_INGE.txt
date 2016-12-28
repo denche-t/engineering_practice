@@ -46,7 +46,7 @@ login=toto&token=nlsMn6Zt7plJ5x&date_leave_start=2016-12-16&date_leave_end=2016-
 	{"status":1,"message":"NEW_LEAVE internal error"}
 	{"status":4,"message":"LEAVES leave invalid format"}
 
-/leaves/validate/dm	PATCH
+/leaves/validate/dm	POST
 login=toto&token=nlsMn6Zt7plJ5x&leave_id=1&dm_validation=true
 	{"status":0,"message":"LEAVE dm validation succeed"}
 	{"status":1,"message":"TOKEN internal error"}
@@ -55,8 +55,8 @@ login=toto&token=nlsMn6Zt7plJ5x&leave_id=1&dm_validation=true
 	{"status":3,"message":"EMPLOYEE employee not found"}
 	{"status":1,"message":"LEAVE dm validation internal error"}
 
-/leaves/validate/gm	PATCH
-login=toto&token=nlsMn6Zt7plJ5x&leave_id=1&dm_validation=false
+/leaves/validate/gm	POST
+login=toto&token=nlsMn6Zt7plJ5x&leave_id=1&gm_validation=false
 	{"status":0,"message:"LEAVE gm validation succeed"}
 	{"status":1,"message:"TOKEN internal error"}
 	{"status":2,"message:"TOKEN token not valid"}
